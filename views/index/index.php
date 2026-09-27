@@ -1,40 +1,24 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MicroMaster — Sistema de Gestión de Insumos Alimentarios</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/main.css">
-</head>
-<body>
-
 <div id="auth-screen">
-  <!-- Background atmosphere -->
   <div class="auth-hero-bg"></div>
 
-  <!-- Navbar -->
   <nav class="landing-nav">
-    <!-- 🏷️ Logo de la marca — para cambiarlo reemplaza el archivo assets/img/logo-micromaster.png -->
     <div class="landing-nav-logo">
       <img src="assets/img/WhatsApp Image 2025-07-07 at 2.53.03 PM.png" alt="MicroMaster" style="width:100px;height:100px;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.4))">
       MicroMaster
     </div>
-
     <ul class="landing-nav-links">
       <li><a href="#" data-menu="tipos" onmouseover="toggleMegaMenu('tipos')">Tipos de industria</a></li>
       <li><a href="#" data-menu="productos" onmouseover="toggleMegaMenu('productos')">Productos</a></li>
       <li><a href="#" data-menu="modulos" onmouseover="toggleMegaMenu('modulos')">Módulos</a></li>
       <li><a href="#" data-menu="novedades" onmouseover="toggleMegaMenu('novedades')">Lo último</a></li>
     </ul>
-
     <div class="landing-nav-right">
       <button class="nav-link-right" onclick="showAuthModal('login')">Iniciar sesión</button>
       <button class="hero-btn-white" style="padding:9px 20px;font-size:13px" onclick="showAuthModal('register')">Comenzar</button>
     </div>
   </nav>
 
-  <!-- ── MEGA MENÚ: Tipos de industria ── -->
+  <!-- Mega Menus... -->
   <div class="mega-menu-overlay" id="mega-tipos" onclick="closeMegaMenu()">
     <div class="mega-menu" onclick="event.stopPropagation()" style="align-items:flex-start">
       <div>
@@ -71,7 +55,6 @@
     </div>
   </div>
 
-  <!-- ── MEGA MENÚ: Productos ── -->
   <div class="mega-menu-overlay" id="mega-productos" onclick="closeMegaMenu()">
     <div class="mega-menu" onclick="event.stopPropagation()" style="align-items:flex-start">
       <div>
@@ -96,10 +79,9 @@
     </div>
   </div>
 
-  <!-- ── MEGA MENÚ: Módulos ── -->
   <div class="mega-menu-overlay" id="mega-modulos" onclick="closeMegaMenu()">
     <div class="mega-menu" onclick="event.stopPropagation()" style="gap:20px;align-items:flex-start">
-      <div class="grid-2" style="gap:12px;flex:1">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1">
         <div style="padding:16px;border:1px solid #e0e8f0;border-radius:10px;cursor:pointer" onclick="closeMegaMenu()">
           <span class="icon-inline">📦</span>
           <p style="font-weight:800;font-size:14px;margin:8px 0 4px">Inventario</p>
@@ -124,8 +106,6 @@
     </div>
   </div>
 
-
-  <!-- ── MEGA MENÚ: Lo último ── -->
   <div class="mega-menu-overlay" id="mega-novedades" onclick="closeMegaMenu()">
     <div class="mega-menu" onclick="event.stopPropagation()" style="align-items:flex-start;gap:32px">
       <div style="flex:1">
@@ -162,31 +142,29 @@
   <!-- Hero -->
   <div class="landing-hero">
     <div class="landing-hero-title">
-      Leyenda local o líder industrial.<br>Lleva tu negocio<br>alimentario al siguiente nivel.
+      Leyenda local o l&iacute;der industrial.<br>Lleva tu negocio<br>alimentario al siguiente nivel.
     </div>
     <div class="landing-hero-btns">
       <button class="hero-btn-white" onclick="showAuthModal('register')">Comenzar gratis</button>
-      <button class="hero-btn-blue" onclick="showAuthModal('login')">Iniciar sesión</button>
+      <button class="hero-btn-blue" onclick="showAuthModal('login')">Iniciar sesi&oacute;n</button>
     </div>
 
-    <!-- Brand strip -->
     <div class="brand-strip">
       <span class="brand-strip-item"><span class="icon-pill">🍽️</span>Restaurantes</span>
       <span class="brand-strip-item"><span class="icon-pill">🏭</span>Plantas de alimentos</span>
-      <span class="brand-strip-item"><span class="icon-pill">🥐</span>Panaderías</span>
-      <span class="brand-strip-item"><span class="icon-pill">☕</span>Cafeterías</span>
+      <span class="brand-strip-item"><span class="icon-pill">🥐</span>Panader&iacute;as</span>
+      <span class="brand-strip-item"><span class="icon-pill">☕</span>Cafeter&iacute;as</span>
       <span class="brand-strip-item"><span class="icon-pill">🏨</span>Catering y hoteles</span>
       <span class="brand-strip-item"><span class="icon-pill">🛒</span>Distribuidoras</span>
-      <span class="brand-strip-item"><span class="icon-pill">🍦</span>Heladerías</span>
+      <span class="brand-strip-item"><span class="icon-pill">🍦</span>Helader&iacute;as</span>
     </div>
   </div>
 
-  <!-- Floating welcome card -->
   <div class="welcome-float" id="welcome-float">
     <div class="welcome-card">
       <button class="welcome-close" onclick="hideWelcome()" aria-label="Cerrar bienvenida">✕</button>
       <h3>¡Bienvenido!</h3>
-      <p>Parece que te interesa MicroMaster. ¿Cómo podemos ayudarte hoy?</p>
+      <p>Parece que te interesa MicroMaster. ¿C&oacute;mo podemos ayudarte hoy?</p>
       <button class="welcome-option" onclick="showAuthModal('register')">Quiero registrarme ahora</button>
       <button class="welcome-option" onclick="showAuthModal('login')">Ya tengo una cuenta</button>
       <button class="welcome-option" onclick="enterApp()">Explorar el sistema (Demo)</button>
@@ -194,37 +172,34 @@
     <button class="welcome-float-btn" id="welcome-float-btn" onclick="restoreWelcome()" aria-label="Abrir bienvenida">💬</button>
   </div>
 
-  <!-- Modal de Autenticación (Login / Registro) -->
+  <!-- Auth Modal -->
   <div class="modal-overlay" id="modal-auth" style="z-index:200">
     <div class="modal" style="width:460px;max-height:92vh">
       <div class="modal-header">
-        <div class="modal-title" id="auth-modal-title" style="font-size:18px">Iniciar Sesión</div>
+        <div class="modal-title" id="auth-modal-title" style="font-size:18px">Iniciar Sesi&oacute;n</div>
         <button class="modal-close" onclick="closeModal('modal-auth')">✕</button>
       </div>
-      <!-- Tabs -->
       <div style="display:flex;gap:4px;background:var(--bg);border-radius:10px;padding:4px;margin-bottom:22px">
-        <button id="auth-tab-login" onclick="switchAuthMode('login')" style="flex:1;padding:9px;border:none;background:var(--white);border-radius:7px;font-family:DM Sans,sans-serif;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.07);transition:all 0.2s">Iniciar Sesión</button>
+        <button id="auth-tab-login" onclick="switchAuthMode('login')" style="flex:1;padding:9px;border:none;background:var(--white);border-radius:7px;font-family:DM Sans,sans-serif;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.07);transition:all 0.2s">Iniciar Sesi&oacute;n</button>
         <button id="auth-tab-register" onclick="switchAuthMode('register')" style="flex:1;padding:9px;border:none;background:transparent;border-radius:7px;font-family:DM Sans,sans-serif;font-size:13px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all 0.2s">Registrarse</button>
       </div>
 
-      <!-- LOGIN FORM -->
       <div id="auth-form-login">
         <div style="margin-bottom:14px">
-          <label style="display:block;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Correo electrónico</label>
+          <label style="display:block;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Correo electr&oacute;nico</label>
           <input type="email" value="admin@micromaster.com" style="width:100%;padding:12px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:DM Sans,sans-serif;font-size:14px;color:var(--black);background:var(--bg);outline:none">
         </div>
         <div style="margin-bottom:22px">
-          <label style="display:block;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Contraseña</label>
+          <label style="display:block;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Contrase&ntilde;a</label>
           <input type="password" value="admin123" style="width:100%;padding:12px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:DM Sans,sans-serif;font-size:14px;color:var(--black);background:var(--bg);outline:none">
         </div>
         <button onclick="enterApp()" style="width:100%;padding:13px;background:var(--primary);color:#fff;border:none;border-radius:10px;font-family:DM Sans,sans-serif;font-size:15px;font-weight:700;cursor:pointer;margin-bottom:10px">Ingresar al sistema</button>
         <button onclick="enterApp()" style="width:100%;padding:11px;background:transparent;color:var(--primary);border:1.5px solid var(--border);border-radius:10px;font-family:DM Sans,sans-serif;font-size:14px;font-weight:600;cursor:pointer"><span class="icon-inline small">⚡</span>Acceso Demo</button>
-        <p style="text-align:center;margin-top:14px;font-size:12px;color:var(--text-muted)">¿No tienes cuenta? <a href="#" onclick="switchAuthMode('register')" style="color:var(--primary);font-weight:700;text-decoration:none">Regístrate gratis</a></p>
+        <p style="text-align:center;margin-top:14px;font-size:12px;color:var(--text-muted)">¿No tienes cuenta? <a href="#" onclick="switchAuthMode('register')" style="color:var(--primary);font-weight:700;text-decoration:none">Reg&iacute;strate gratis</a></p>
       </div>
 
-      <!-- REGISTER FORM -->
       <div id="auth-form-register" style="display:none">
-        <div class="auth-form-grid" style="margin-bottom:14px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
           <div>
             <label style="display:block;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Nombre</label>
             <input type="text" placeholder="Tu nombre" style="width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:DM Sans,sans-serif;font-size:13px;color:var(--black);background:var(--bg);outline:none">
@@ -237,54 +212,37 @@
         <div style="margin-bottom:12px">
           <label style="display:block;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Tipo de negocio</label>
           <select style="width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:DM Sans,sans-serif;font-size:13px;color:var(--black);background:var(--bg);outline:none">
-            <option>Restaurante</option>
-            <option>Planta de producción de alimentos</option>
-            <option>Panadería / Pastelería</option>
-            <option>Cafetería / Bebidas</option>
-            <option>Hotel / Catering</option>
-            <option>Distribuidora de alimentos</option>
-            <option>Heladería / Snacks</option>
-            <option>Otro</option>
+            <option>Restaurante</option><option>Planta de producci&oacute;n de alimentos</option><option>Panader&iacute;a / Pasteler&iacute;a</option><option>Cafeter&iacute;a / Bebidas</option><option>Hotel / Catering</option><option>Distribuidora de alimentos</option><option>Helader&iacute;a / Snacks</option><option>Otro</option>
           </select>
         </div>
         <div style="margin-bottom:12px">
-          <label style="display:block;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Correo electrónico</label>
+          <label style="display:block;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Correo electr&oacute;nico</label>
           <input type="email" placeholder="tu@empresa.com" style="width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:DM Sans,sans-serif;font-size:13px;color:var(--black);background:var(--bg);outline:none">
         </div>
-        <div class="auth-form-grid" style="margin-bottom:12px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
           <div>
-            <label style="display:block;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Contraseña</label>
-            <input type="password" placeholder="Mín. 8 caracteres" style="width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:DM Sans,sans-serif;font-size:13px;color:var(--black);background:var(--bg);outline:none">
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Contrase&ntilde;a</label>
+            <input type="password" placeholder="M&iacute;n. 8 caracteres" style="width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:DM Sans,sans-serif;font-size:13px;color:var(--black);background:var(--bg);outline:none">
           </div>
           <div>
-            <label style="display:block;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Confirmar contraseña</label>
-            <input type="password" placeholder="Repite tu contraseña" style="width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:DM Sans,sans-serif;font-size:13px;color:var(--black);background:var(--bg);outline:none">
+            <label style="display:block;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Confirmar contrase&ntilde;a</label>
+            <input type="password" placeholder="Repite tu contrase&ntilde;a" style="width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:DM Sans,sans-serif;font-size:13px;color:var(--black);background:var(--bg);outline:none">
           </div>
         </div>
         <div style="margin-bottom:20px">
           <label style="display:block;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Rol en la empresa</label>
           <select style="width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:DM Sans,sans-serif;font-size:13px;color:var(--black);background:var(--bg);outline:none">
-            <option>Administrador</option>
-            <option>Supervisor</option>
-            <option>Operador</option>
+            <option>Administrador</option><option>Supervisor</option><option>Operador</option>
           </select>
         </div>
         <button onclick="enterApp()" style="width:100%;padding:13px;background:var(--primary);color:#fff;border:none;border-radius:10px;font-family:DM Sans,sans-serif;font-size:15px;font-weight:700;cursor:pointer;margin-bottom:10px">Crear cuenta gratuita</button>
-        <p style="text-align:center;font-size:12px;color:var(--text-muted)">¿Ya tienes cuenta? <a href="#" onclick="switchAuthMode('login')" style="color:var(--primary);font-weight:700;text-decoration:none">Inicia sesión</a></p>
+        <p style="text-align:center;font-size:12px;color:var(--text-muted)">¿Ya tienes cuenta? <a href="#" onclick="switchAuthMode('login')" style="color:var(--primary);font-weight:700;text-decoration:none">Inicia sesi&oacute;n</a></p>
       </div>
     </div>
   </div>
 </div>
 
-
-<!-- Toast -->
 <div class="toast" id="toast">
   <span id="toast-icon" class="icon-inline small">✅</span>
-  <span id="toast-msg">Acción completada</span>
+  <span id="toast-msg">Acci&oacute;n completada</span>
 </div>
-
-
-
-<script src="assets/js/main.js"></script>
-</body>
-</html>

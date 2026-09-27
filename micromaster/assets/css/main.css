@@ -29,10 +29,7 @@
   --border: #cfe0db;             /* bordes suaves */
 
   /* 📐 LAYOUT */
-  --sidebar-w: 260px;            /* ancho del sidebar (escritorio) */
-  --sidebar-drawer-w: 272px;     /* ancho del menú lateral desplegable en móvil */
-  --landing-nav-h: 60px;         /* alto de la navbar del landing */
-  --content-max: 1440px;         /* ancho máximo del contenido */
+  --sidebar-w: 260px;            /* ancho del sidebar */
 
   /* ✨ TRANSICIONES — Velocidad global de animaciones */
   --t-fast: 0.15s ease;
@@ -47,22 +44,13 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html {
-  -webkit-text-size-adjust: 100%;
-}
-
 body {
   font-family: 'DM Sans', sans-serif;
   background: var(--bg);
   color: var(--black);
   min-height: 100vh;
   overflow-y: scroll !important;
-  overflow-x: hidden;
 }
-
-/* Evita que inputs/selects revienten el ancho en iOS */
-input, select, textarea, button { font: inherit; }
-img, svg { max-width: 100%; }
 
 /* ── AUTH / LANDING ── */
 #auth-screen {
@@ -139,12 +127,10 @@ img, svg { max-width: 100%; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
   padding: 0 48px;
-  height: var(--landing-nav-h);
+  height: 60px;
   background: rgba(0,0,0,0.15);
   backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
@@ -157,16 +143,6 @@ img, svg { max-width: 100%; }
   font-size: 16px;
   color: #fff;
   letter-spacing: -0.3px;
-  white-space: nowrap;
-}
-
-/* El logo se dimensiona con el viewport en vez de con un ancho fijo */
-.landing-nav-logo-img {
-  width: clamp(40px, 7vw, 68px);
-  height: auto;
-  aspect-ratio: 1 / 1;
-  object-fit: contain;
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
 }
 
 .landing-nav-logo-icon {
@@ -184,7 +160,6 @@ img, svg { max-width: 100%; }
   align-items: center;
   gap: 28px;
   list-style: none;
-  min-width: 0;
 }
 
 .landing-nav-links a {
@@ -193,7 +168,6 @@ img, svg { max-width: 100%; }
   font-size: 14px;
   font-weight: 500;
   transition: color 0.2s;
-  white-space: nowrap;
 }
 .landing-nav-links a:hover { color: #fff; }
 
@@ -201,7 +175,6 @@ img, svg { max-width: 100%; }
   display: flex;
   align-items: center;
   gap: 20px;
-  flex-shrink: 0;
 }
 
 .nav-link-right {
@@ -212,14 +185,9 @@ img, svg { max-width: 100%; }
   cursor: pointer;
   background: none;
   border: none;
-  padding: 8px 10px;
-  min-height: 38px;
-  display: inline-flex;
-  align-items: center;
-  border-radius: 8px;
-  transition: color 0.2s, background 0.2s;
+  transition: color 0.2s;
 }
-.nav-link-right:hover { color: #fff; background: rgba(255,255,255,0.10); }
+.nav-link-right:hover { color: #fff; }
 
 /* ── HERO ── */
 .landing-hero {
@@ -232,8 +200,7 @@ img, svg { max-width: 100%; }
   justify-content: center;
   text-align: center;
   padding: 80px 24px 60px;
-  min-height: calc(100vh - var(--landing-nav-h));
-  min-height: calc(100svh - var(--landing-nav-h));
+  min-height: calc(100vh - 60px);
 }
 
 .landing-hero-title {
@@ -426,7 +393,7 @@ img, svg { max-width: 100%; }
   right: 28px;
   z-index: 100;
   width: auto;
-  max-width: min(340px, calc(100vw - 40px));
+  max-width: 340px;
   animation: floatIn 0.4s 0.6s ease both;
 }
 
@@ -570,7 +537,15 @@ img, svg { max-width: 100%; }
 
 .welcome-float.under-mega {
   position: fixed;
-  top: calc(var(--landing-nav-h) + 280px);
+  top: calc(60px + 300px);
+  right: 28px;
+  bottom: auto;
+  z-index: 60;
+}
+
+.welcome-float.under-mega {
+  position: fixed;
+  top: calc(60px + 280px);
   right: 28px;
   bottom: auto;
   z-index: 60;
@@ -616,7 +591,7 @@ img, svg { max-width: 100%; }
 /* ── UNIFIED MEGA MENU CONTAINER ── */
 .mega-menu-container {
   position: fixed;
-  top: var(--landing-nav-h);
+  top: 60px;
   left: 0;
   right: 0;
   z-index: 120;
@@ -628,9 +603,8 @@ img, svg { max-width: 100%; }
   pointer-events: none;
   transform: translateY(-12px);
   transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
-  max-height: calc(100vh - var(--landing-nav-h));
+  max-height: calc(100vh - 60px);
   overflow-y: auto;
-  overscroll-behavior: contain;
 }
 
 .mega-menu-container.open {
@@ -648,16 +622,6 @@ img, svg { max-width: 100%; }
   display: flex;
   gap: 60px;
   align-items: flex-start;
-}
-
-/* El panel lateral oscuro ("próximas funciones") del mega menú de novedades */
-.mega-menu-aside {
-  width: 240px;
-  flex-shrink: 0;
-  background: #1a1a2e;
-  border-radius: 12px;
-  padding: 22px;
-  color: #fff;
 }
 
 /* Hide old overlay system when new container is active */
@@ -684,7 +648,7 @@ img, svg { max-width: 100%; }
 
 .mega-menu {
   position: absolute;
-  top: var(--landing-nav-h); left: 0; right: 0;
+  top: 60px; left: 0; right: 0;
   background: #fff;
   padding: 40px 60px;
   display: flex;
@@ -730,97 +694,78 @@ img, svg { max-width: 100%; }
 #app.visible { display: flex; min-height: 100vh; }
 
 /* ── 📚 SIDEBAR (menú lateral oscuro) ──
-   Este bloque es la ÚNICA fuente de estilo del sidebar: todas las páginas
-   internas comparten el mismo diseño, así que el responsive se resuelve
-   aquí y no en <style> por página.
-   Para cambiar el COLOR DE FONDO: modifica --primary-dark en :root. */
+   Para cambiar el COLOR DE FONDO del sidebar:
+   modifica --primary-dark en :root. */
 .sidebar {
   width: var(--sidebar-w);
-  flex-shrink: 0;
   background: linear-gradient(180deg, var(--primary-dark) 0%, #0d2c2a 100%);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  padding: 8px 10px;
-  color: rgba(255,255,255,.92);
   position: fixed;
   top: 0; left: 0;
   z-index: 100;
   overflow-y: auto;
-  overscroll-behavior: contain;
   box-shadow: 4px 0 24px rgba(0,0,0,0.08);
-  transition: transform var(--t-base);
 }
-
-/* Variante azul marino (página "Acerca de") */
-.sidebar.sid-navy { background: #08101f; }
-
-/* Capa oscura detrás del menú cuando está desplegado en móvil */
-.sidebar-backdrop {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 99;
-  background: rgba(10,15,40,0.45);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-  opacity: 0;
-  transition: opacity var(--t-base);
-}
-.sidebar-backdrop.open { display: block; opacity: 1; }
-
-/* Bloquea el scroll del fondo mientras el drawer está abierto */
-body.sidebar-open { overflow: hidden; }
 
 /* ── 🏷️ SIDEBAR LOGO (cabecera del menú lateral) ──
-   Para cambiar el ICONO: edita el <img> en cada página
+   Para cambiar el ICONO: edita el <img> en cada HTML
    apuntando a 'assets/img/logo-micromaster.png'.
    Para cambiar el TÍTULO o subtítulo: modifica el texto
-   dentro de .sidebar-logo-title / .sidebar-logo-sub. */
+   dentro de .sidebar-logo-text / .sidebar-logo-sub. */
 .sidebar-logo {
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding-bottom: 6px;
-  margin-bottom: 4px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  gap: 1px;
+  transition: background var(--t-base);
 }
+.sidebar-logo:hover { background: rgba(255,255,255,0.03); }
 
 .sidebar-logo-img {
-  width: 44px; height: 44px;
-  border-radius: 14px;
-  object-fit: cover;
-  flex-shrink: 0;
+  width: 80px; height: 80px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25));
+  transition: transform var(--t-base);
+}
+.sidebar-logo:hover .sidebar-logo-img { transform: rotate(-6deg) scale(1.05); }
+
+.sidebar-logo-text {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.5px;
+  line-height: 1;
 }
 
 .sidebar-logo-title {
-  font-family: 'Inter', sans-serif;
-  font-size: 17px;
+  font-family: var(--font-display);
+  font-size: 20px;
   font-weight: 700;
-  letter-spacing: .04em;
-  color: #f8fafc;
-  line-height: 1.2;
+  color: #fff;
+  letter-spacing: -0.5px;
+  line-height: 1;
 }
 
 .sidebar-logo-sub {
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  letter-spacing: .22em;
-  text-transform: uppercase;
+  font-size: 9.5px;
   color: rgba(255,255,255,0.45);
-  margin-top: -2px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 3px;
 }
 
 .sidebar-section-label {
-  font-family: 'Inter', sans-serif;
-  font-size: 8px;
+  font-size: 9px;
   font-weight: 700;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
-  letter-spacing: .20em;
-  color: rgba(255,255,255,0.35);
-  margin: 6px 0 2px;
-  padding: 0 10px;
+  color: rgba(255,255,255,0.3);
+  padding: 8px 24px 4px;
 }
 
 /* ── 🧭 NAV ITEM (enlaces del menú lateral) ──
@@ -829,66 +774,59 @@ body.sidebar-open { overflow: hidden; }
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 7px 10px;
-  border-radius: 10px;
+  gap: 12px;
+  padding: 6px 20px;
   cursor: pointer;
-  font-family: 'Inter', sans-serif;
   font-size: 12px;
-  font-weight: 400;
-  letter-spacing: .01em;
-  color: rgba(255,255,255,0.82);
-  text-decoration: none;
-  transition: background var(--t-fast), color var(--t-fast);
+  font-weight: 500;
+  color: rgba(255,255,255,0.55);
+  border-left: 3px solid transparent;
+  transition: color var(--t-base), background var(--t-base),
+              border-left-color var(--t-base), padding-left var(--t-base);
   user-select: none;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
 }
 
 .nav-item:hover {
-  background: rgba(255,255,255,0.08);
-  color: #f8fafc;
+  color: #fff;
+  background: rgba(255,255,255,0.07);
+  padding-left: 28px; /* sutil deslizamiento al hacer hover */
 }
 
 .nav-item.active {
-  background: rgba(52,211,153,0.18);
-  color: #e2f9e7;
+  color: #fff;
+  background: linear-gradient(90deg, rgba(15,110,86,0.45), rgba(15,110,86,0.05));
+  border-left-color: var(--primary); /* franja con el color primario */
 }
-.nav-item.active:hover { background: rgba(52,211,153,0.24); }
 
 .nav-icon {
-  width: 22px;
-  height: 22px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(255,255,255,0.68);
-  transition: color var(--t-fast);
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+  transition: transform var(--t-base);
 }
-.nav-item:hover .nav-icon { color: #f8fafc; }
-.nav-item.active .nav-icon { color: #4ade80; }
+.nav-item:hover .nav-icon { transform: scale(1.15); }
 
 /* ── 👤 BLOQUE DE USUARIO (parte inferior del sidebar) ── */
 .sidebar-user {
   margin-top: auto;
-  padding-top: 10px;
+  padding: 20px 22px;
   border-top: 1px solid rgba(255,255,255,0.08);
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
 }
 
 .sidebar-user-name {
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
-  color: #f8fafc;
+  color: #fff;
 }
 
 .sidebar-user-role {
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  color: rgba(255,255,255,0.5);
-  margin: 0 0 6px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  margin-top: 2px;
+  margin-bottom: 12px;
 }
 
 /* ── 🚪 BOTÓN CERRAR SESIÓN ──
@@ -896,26 +834,22 @@ body.sidebar-open { overflow: hidden; }
    Para cambiar la animación: ajusta la 'transition' o el ':hover'. */
 .btn-logout {
   width: 100%;
-  padding: 7px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.12);
+  padding: 6px;
   background: rgba(255,255,255,0.05);
-  color: rgba(255,255,255,0.88);
-  font-family: 'Inter', sans-serif;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 10px;
+  color: rgba(255,255,255,0.75);
+  font-family: var(--font-body);
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  transition: background var(--t-fast), border-color var(--t-fast);
-}
-
-.btn-logout:hover {
-  background: rgba(255,255,255,0.12);
-  border-color: rgba(255,255,255,0.22);
-  color: #fff;
+  gap: 8px;
+  transition: all var(--t-base);
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-logout span {
@@ -923,11 +857,32 @@ body.sidebar-open { overflow: hidden; }
   align-items: center;
 }
 
+.btn-logout::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--red), #c93838);
+  opacity: 0;
+  transition: opacity var(--t-base);
+  z-index: 0;
+}
+
+.btn-logout > * { position: relative; z-index: 1; }
+
+.btn-logout:hover {
+  color: #fff;
+  border-color: transparent;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(163,45,45,0.35);
+}
+.btn-logout:hover::before { opacity: 1; }
+
+.btn-logout:active { transform: translateY(0); }
+
 /* ── MAIN ── */
 .main {
   margin-left: var(--sidebar-w);
   flex: 1;
-  min-width: 0;              /* permite que los grids se encogan sin desbordar */
   display: flex;
   flex-direction: column;
 }
@@ -938,46 +893,16 @@ body.sidebar-open { overflow: hidden; }
 .topbar {
   background: var(--white);
   border-bottom: 1.5px solid var(--border);
-  padding: 12px 24px;
+  padding: 16px 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
   position: sticky;
   top: 0;
   z-index: 50;
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   background: rgba(255,255,255,0.85);
 }
-
-.topbar-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-width: 0;
-}
-
-/* Botón de menú: sólo visible cuando el sidebar pasa a ser desplegable */
-.topbar-toggle {
-  display: none;
-  width: 38px; height: 38px;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  background: var(--bg);
-  border: 1.5px solid var(--border);
-  border-radius: 10px;
-  color: var(--black);
-  cursor: pointer;
-  transition: background var(--t-fast), border-color var(--t-fast);
-}
-.topbar-toggle:hover {
-  background: var(--primary-light);
-  border-color: var(--primary);
-  color: var(--primary);
-}
-.topbar-toggle svg { display: block; }
 
 .page-title {
   font-family: var(--font-display);
@@ -985,16 +910,12 @@ body.sidebar-open { overflow: hidden; }
   font-weight: 900;
   color: var(--black);
   letter-spacing: -0.5px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .topbar-right {
   display: flex;
   align-items: center;
   gap: 12px;
-  flex-shrink: 0;
 }
 
 .topbar-date {
@@ -1006,14 +927,11 @@ body.sidebar-open { overflow: hidden; }
   border-radius: 8px;
   padding: 6px 14px;
   font-family: 'DM Mono', monospace;
-  white-space: nowrap;
 }
 
 .content {
-  padding: 24px;
+  padding: 28px 32px;
   flex: 1;
-  width: 100%;
-  max-width: var(--content-max);
 }
 
 /* ── PAGES ── */
@@ -1177,7 +1095,7 @@ body.sidebar-open { overflow: hidden; }
   transform: translateY(-1px);
 }
 
-.btn-sm { padding: 6px 12px; font-size: 12px; min-height: 30px; }
+.btn-sm { padding: 6px 12px; font-size: 12px; }
 .btn-xs { padding: 4px 9px; font-size: 11px; border-radius: 7px; }
 
 /* 🔲 BOTÓN ICONO (acciones rápidas en tablas) */
@@ -1211,17 +1129,6 @@ body.sidebar-open { overflow: hidden; }
   border-radius: 14px;
   overflow: hidden;
 }
-
-/* Contenedor con scroll horizontal: úsalo cuando la tabla sea más
-   ancha que la pantalla (móvil). */
-.table-scroll {
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior-x: contain;
-}
-
-.table-scroll > table { min-width: 0; }
 
 table { width: 100%; border-collapse: collapse; }
 
@@ -1345,41 +1252,9 @@ tbody tr:hover { background: #fafbfd; }
 }
 
 /* ── FORM ── */
-.form-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; }
-.field { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.field { display: flex; flex-direction: column; gap: 5px; }
 .field.span2 { grid-column: span 2; }
-
-/* Formularios del modal de auth del landing */
-.auth-form-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 12px;
-  margin-bottom: 14px;
-}
-
-/* ── 📐 GRIDS RESPONSIVE ──
-   Sustituyen a los `grid-template-columns` escritos en el style="" de cada
-   página: así el responsive se puede colapsar desde main.css.
-   • .grid-2     → dos columnas iguales, se apila en móvil
-   • .grid-cards → tarjetas fluidas con auto-fit
-   • .grid-side  → columna lateral fija + contenido (mapa, formularios) */
-.grid-2 {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 16px;
-}
-
-.grid-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
-  gap: 14px;
-}
-
-.grid-side {
-  display: grid;
-  grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
-  gap: 14px;
-}
 
 .field label {
   font-size: 11px;
@@ -1465,7 +1340,7 @@ tbody tr:hover { background: #fafbfd; }
 
 .hero-title {
   font-family: 'Fraunces', serif;
-  font-size: clamp(26px, 5vw, 36px);
+  font-size: 36px;
   font-weight: 900;
   line-height: 1.1;
   margin-bottom: 12px;
@@ -1566,7 +1441,7 @@ tbody tr:hover { background: #fafbfd; }
 /* ── REPORTES ── */
 .chart-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: 1fr 1fr;
   gap: 16px;
   margin-bottom: 20px;
 }
@@ -1597,7 +1472,7 @@ tbody tr:hover { background: #fafbfd; }
 
 .kpi-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 14px;
   margin-bottom: 20px;
 }
@@ -1662,11 +1537,10 @@ tbody tr:hover { background: #fafbfd; }
 
 .kpi-value {
   font-family: 'Fraunces', serif;
-  font-size: clamp(22px, 4vw, 30px);
+  font-size: 30px;
   font-weight: 900;
   color: var(--black);
   line-height: 1;
-  overflow-wrap: anywhere;
 }
 
 .kpi-label {
@@ -1699,7 +1573,7 @@ tbody tr:hover { background: #fafbfd; }
 /* ── CALC / SIM ── */
 .calc-grid {
   display: grid;
-  grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+  grid-template-columns: 320px 1fr;
   gap: 20px;
 }
 
@@ -1707,8 +1581,7 @@ tbody tr:hover { background: #fafbfd; }
   background: var(--white);
   border: 1.5px solid var(--border);
   border-radius: 14px;
-  padding: 20px;
-  min-width: 0;
+  padding: 24px;
 }
 
 .calc-panel h3 {
@@ -1722,12 +1595,11 @@ tbody tr:hover { background: #fafbfd; }
 
 .calc-result {
   font-family: 'Fraunces', serif;
-  font-size: clamp(26px, 5.5vw, 44px);
+  font-size: 44px;
   font-weight: 900;
   color: var(--primary);
   margin: 16px 0 4px;
   line-height: 1;
-  overflow-wrap: anywhere;
 }
 
 .calc-label-sm { font-size: 12px; color: var(--text-muted); font-weight: 600; }
@@ -1746,7 +1618,7 @@ tbody tr:hover { background: #fafbfd; }
 /* ── CONFIGURACIÓN ── */
 .config-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
 
@@ -1775,9 +1647,6 @@ tbody tr:hover { background: #fafbfd; }
   padding: 4px;
   margin-bottom: 20px;
   width: fit-content;
-  max-width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
 }
 
 .tab-btn {
@@ -1790,7 +1659,6 @@ tbody tr:hover { background: #fafbfd; }
   font-weight: 600;
   color: var(--text-muted);
   cursor: pointer;
-  white-space: nowrap;
   transition: all 0.2s;
 }
 
@@ -1813,8 +1681,7 @@ tbody tr:hover { background: #fafbfd; }
   font-size: 17px;
   font-weight: 900;
   color: var(--black);
-  min-width: 0;
-  overflow-wrap: anywhere;
+  white-space: nowrap;
 }
 
 .section-divider::after {
@@ -1824,373 +1691,17 @@ tbody tr:hover { background: #fafbfd; }
   background: var(--border);
 }
 
-/* ════════════════════════════════════════════════════════════
-   📱 RESPONSIVE
-   ------------------------------------------------------------
-   Breakpoints:
-   • 1200px  → laptop pequeño: landing y hero más compactos
-   • 1024px  → tablet: el sidebar pasa a menú desplegable
-   • 900px   → tablet vertical: se apilan los grids de 2 columnas
-   • 640px   → móvil: una sola columna, tablas con scroll
-   • 480px   → móvil pequeño: tipografía y espaciado mínimos
-   ════════════════════════════════════════════════════════════ */
-
-/* ── MAPA DE ENVÍOS (altura y tooltip adaptables) ── */
-.map-card {
-  background: #e8f0e4;
-  border-radius: 16px;
-  border: 1.5px solid var(--border);
-  position: relative;
-  overflow: hidden;
-  min-height: clamp(300px, 50vw, 460px);
-  width: 100%;
-}
-
-.map-tooltip {
-  position: absolute;
-  z-index: 50;
-  width: min(280px, calc(100% - 24px));
-  background: rgba(255,255,255,0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,255,255,0.7);
-  border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-  padding: 16px;
-  pointer-events: none;
-  transition: all 0.2s;
-}
-
-/* ── CABECERA DE TABLA (se apila en móvil) ── */
-.table-head {
-  padding: 14px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  flex-wrap: wrap;
-  border-bottom: 1px solid var(--border);
-}
-
-.table-head-actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  min-width: 0;
-}
-
-/* ═════ 1200px — laptop pequeño ═════ */
-@media (max-width: 1200px) {
-  .landing-nav {
-    padding: 0 24px;
-  }
-
-  .landing-nav-links {
-    gap: 18px;
-  }
-
-  .hero-section {
-    padding: 28px 22px;
-  }
-
-  .content {
-    padding: 20px;
-  }
-}
-
-/* ═════ 1024px — TABLET: sidebar desplegable ═════ */
-@media (max-width: 1024px) {
-  /* El main ya no reserva hueco: el menú se superpone */
-  :root { --sidebar-w: 0px; }
-
-  .main { margin-left: 0; }
-
-  .sidebar {
-    width: min(var(--sidebar-drawer-w), 86vw);
-    transform: translateX(-100%);
-    box-shadow: 6px 0 30px rgba(0,0,0,0.18);
-  }
-
-  .sidebar.open {
-    transform: translateX(0);
-  }
-
-  .topbar-toggle { display: inline-flex; }
-
-  /* Grids de dos columnas → una columna */
-  .grid-2,
-  .grid-side,
-  .chart-row,
-  .config-grid,
-  .calc-grid,
-  .form-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .chart-card.wide { grid-column: span 1; }
-  .field.span2 { grid-column: span 1; }
-}
-
-/* ═════ 900px — TABLET VERTICAL ═════ */
+/* ── RESPONSIVE ── */
 @media (max-width: 900px) {
-  .kpi-grid { grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr)); }
-  .stats-row { gap: 12px; }
-  .auth-form-grid { grid-template-columns: minmax(0, 1fr); }
-
-  /* Las tablas no se comprimen: se desplazan dentro de su contenedor */
-  .table-scroll > table { min-width: 620px; }
-
-  /* Mega menús como hoja a pantalla completa */
-  .mega-menu-container {
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    max-height: none;
-    padding: 24px 20px;
-    overscroll-behavior: contain;
-  }
-
-  .mega-menu-panel.active {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .mega-menu-aside {
-    width: 100%;
-  }
-
-  .mega-menu-link { font-size: 20px; }
-  .mega-menu-feature .icon-inline,
-  .icon-inline { margin-right: 6px; }
-
-  /* El panel lateral del mega menú deja de flotar */
-  .mega-menu-panel.active > div[style*="margin-left"] { margin-left: 0 !important; }
-
-  /* La tarjeta de bienvenida no salta al abrir un mega menú */
-  .welcome-float.under-mega {
-    top: auto;
-    bottom: 28px;
-  }
-
-  /* Nav del landing: dos filas compactas */
-  .landing-nav {
-    flex-wrap: wrap;
-    justify-content: space-between;
-    height: auto;
-    padding: 10px 16px;
-    gap: 8px 12px;
-  }
-
-  .landing-nav-logo {
-    flex-shrink: 0;
-  }
-
-  .landing-nav-links {
-    order: 3;
-    width: 100%;
-    justify-content: center;
-    gap: 10px 16px;
-    flex-wrap: wrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .landing-nav-right {
-    gap: 10px;
-  }
-
-  .landing-hero {
-    padding: 48px 18px 40px;
-    min-height: auto;
-  }
-
-  .landing-hero-title { margin-bottom: 18px; }
-  .landing-hero-btns { margin-bottom: 36px; }
-}
-
-/* ═════ 640px — MÓVIL ═════ */
-@media (max-width: 640px) {
-  .topbar {
-    padding: 10px 12px;
-  }
-
-  .content {
-    padding: 14px 12px;
-  }
-
-  .topbar-date {
-    padding: 5px 10px;
-    font-size: 11px;
-  }
-
-  /* Una sola columna en todo */
-  .grid-2,
-  .grid-side,
-  .stats-row,
-  .kpi-grid,
-  .team-grid,
-  .chart-row,
-  .config-grid,
-  .calc-grid,
-  .form-grid,
-  .auth-form-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .toolbar {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  /* Targets táctiles cómodo (mínimo 40px de alto) */
-  .btn-sm,
-  .btn-xs {
-    min-height: 40px;
-    padding-left: 14px;
-    padding-right: 14px;
-  }
-
-  .btn-icon { min-height: 40px; min-width: 40px; }
-
-  .search-box,
-  .filter-select,
-  .toolbar .btn {
-    width: 100%;
-  }
-
-  /* Tablas: scroll horizontal con ancho mínimo legible */
-  .table-wrap,
-  .table-scroll {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  table { min-width: 620px; }
-
-  th, td { padding: 10px 12px; }
-
-  .stat-card { padding: 14px 16px; }
-
-  .chart-wrap { height: 180px; }
-
-  .modal {
-    width: min(94vw, 500px);
-    padding: 20px 16px;
-    max-height: 88vh;
-  }
-
-  .modal-header {
-    margin-bottom: 18px;
-    padding-bottom: 12px;
-  }
-
-  .modal-footer {
-    flex-direction: column-reverse;
-  }
-
-  .modal-footer .btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .map-card { min-height: 260px; }
-
-  .table-head {
-    padding: 12px;
-  }
-
-  .table-head-actions { width: 100%; }
-  .table-head-actions .search-box { width: 100%; }
-  .table-head-actions .btn { flex: 1 1 auto; justify-content: center; }
-
-  /* Tarjeta de bienvenida: ocupa lo justo y no bloquea la pantalla */
-  .welcome-float {
-    left: 12px;
-    right: 12px;
-    bottom: 12px;
-    max-width: none;
-  }
-
-  .welcome-card {
-    border-radius: 22px;
-    padding: 18px 16px 16px;
-  }
-
-  .welcome-card h3 { font-size: 18px; }
-  .welcome-float.minimized { right: 12px; bottom: 12px; }
-
-  .welcome-close {
-    width: 40px;
-    height: 40px;
-    top: 10px;
-    right: 10px;
-  }
-
-  .landing-nav-links a,
-  .nav-link-right {
-    font-size: 12px;
-  }
-
-  .hero-btn-white,
-  .hero-btn-blue {
-    width: 100%;
-    max-width: 220px;
-    min-height: 44px;
-  }
-}
-
-/* ═════ 480px — MÓVIL PEQUEÑO ═════ */
-@media (max-width: 480px) {
-  .landing-nav {
-    padding: 10px 12px;
-  }
-
-  .landing-nav-right {
-    gap: 8px;
-  }
-
-  .landing-nav-logo { font-size: 14px; }
-
-  .landing-hero-title {
-    font-size: clamp(30px, 11vw, 44px);
-  }
-
-  .page-title {
-    font-size: 17px;
-  }
-
-  .stat-value {
-    font-size: 26px;
-  }
-
-  .stat-label { font-size: 10px; }
-
-  .section-divider h3 {
-    font-size: 15px;
-  }
-
-  .section-divider { margin: 18px 0 12px; }
-
-  .brand-strip-item {
-    font-size: 11px;
-    padding: 8px 11px;
-  }
-
-  .topbar-date { display: none; }
-}
-
-/* ═════ PANTALLAS ALTAS (desktop) ═════ */
-@media (min-width: 1600px) {
-  .content { padding: 32px 40px; }
-}
-
-/* ═════ ACCESIBILIDAD: respeta "reducir movimiento" ═════ */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+  :root { --sidebar-w: 70px; }
+  .sidebar-logo-text, .sidebar-logo-sub, .sidebar-section-label { display: none; }
+  .nav-item span { display: none; }
+  .nav-item { padding: 12px; justify-content: center; }
+  .sidebar-user-name, .sidebar-user-role { display: none; }
+  .main { margin-left: 70px; }
+  .chart-row { grid-template-columns: 1fr; }
+  .chart-card.wide { grid-column: span 1; }
+  .calc-grid { grid-template-columns: 1fr; }
+  .config-grid { grid-template-columns: 1fr; }
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
 }

@@ -1,30 +1,38 @@
-<?php
-// recetas.php - INICIO DEL ARCHIVO: Cargar recetas desde phpMyAdmin
-require_once 'conexion.php';
-
-try {
-    // Consultamos todas las recetas ordenadas por nombre
-    $stmt = $pdo->query("SELECT * FROM recetas ORDER BY nombre ASC");
-    $listaRecetas = $stmt->fetchAll();
-} catch (Exception $e) {
-    $listaRecetas = []; // Evita errores en la interfaz si la base de datos falla
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MicroMaster — Recetas</title>
+<title>MicroMaster — Configuración</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/main.css">
 
+<style>
+    .sidebar { width: 260px; min-height: 100vh; padding: 8px 10px; background: var(--primary-dark); color: rgba(255,255,255,.92); display: flex; flex-direction: column; gap: 2px; }
+    .sidebar-logo { display: flex; align-items: center; gap: 8px; padding-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .sidebar-logo-img { width: 44px; height: 44px; border-radius: 14px; object-fit: cover; }
+    .sidebar-logo-title { font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 700; letter-spacing: .04em; color: #f8fafc; }
+    .sidebar-logo-sub { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-top: -2px; }
+    .sidebar-section-label { font-family: 'Inter', sans-serif; font-size: 8px; text-transform: uppercase; letter-spacing: .20em; color: rgba(255,255,255,.35); margin-top: 2px; margin-bottom: 2px; }
+    .nav-item { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 10px; color: rgba(255,255,255,.82); text-decoration: none; font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: .01em; transition: background .2s ease, color .2s ease; }
+    .nav-item:hover { background: rgba(255,255,255,.08); color: #f8fafc; }
+    .nav-icon { width: 22px; height: 22px; display: flex; flex-shrink: 0; align-items: center; justify-content: center; color: rgba(255,255,255,.68); }
+    .nav-item.active { background: rgba(52,211,153,.18); color: #e2f9e7; }
+    .nav-item.active .nav-icon { color: #4ade80; }
+    .nav-item.active:hover { background: rgba(52,211,153,.24); }
+    .sidebar-user { margin-top: auto; padding-top: 6px; border-top: 1px solid rgba(255,255,255,.08); display: flex; flex-direction: column; gap: 3px; }
+    .sidebar-user-name { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; color: #f8fafc; }
+    .sidebar-user-role { font-family: 'Inter', sans-serif; font-size: 12px; color: rgba(255,255,255,.5); }
+    .btn-logout { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.05); color: rgba(255,255,255,.88); font-family: 'Inter', sans-serif; font-size: 11px; cursor: pointer; transition: background .2s ease, border-color .2s ease; }
+    .btn-logout:hover { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.22); }
+    .btn-logout span { display: inline-flex; align-items: center; }
+  </style>
 </head>
 <body>
 
 <div id="app" class="visible">
 
-  <aside class="sidebar" id="app-sidebar">
+  <aside class="sidebar">
     <div class="sidebar-logo">
       <img src="assets/img/WhatsApp Image 2025-07-07 at 2.53.03 PM.png" alt="MicroMaster" class="sidebar-logo-img">
       <div>
@@ -42,7 +50,7 @@ try {
       <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22" style="display: block;"><path d="M4 7.5L12 3l8 4.5v9L12 21 4 16.5v-9z" /><path d="M12 3v18" /><path d="M4 7.5l8 4.5 8-4.5" /></svg></span>
       <span>Inventario</span>
     </a>
-    <a class="nav-item active" href="recetas.php">
+    <a class="nav-item" href="recetas.php">
       <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22" style="display: block;"><path d="M8 4h8a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" /><path d="M8 8h8" /><path d="M12 12h4" /><path d="M12 16h4" /></svg></span>
       <span>Recetas</span>
     </a>
@@ -64,7 +72,7 @@ try {
       <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22" style="display: block;"><path d="M5 19V10h4v9H5z" /><path d="M10 19V4h4v15h-4z" /><path d="M15 19V14h4v5h-4z" /></svg></span>
       <span>Reportes</span>
     </a>
-    <a class="nav-item" href="configuracion.php">
+    <a class="nav-item active" href="configuracion.php">
       <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22" style="display: block;"><circle cx="12" cy="12" r="3" /><line x1="19.4" y1="15" x2="21" y2="15" /><line x1="3" y1="15" x2="4.6" y2="15" /><line x1="19.4" y1="9" x2="21" y2="9" /><line x1="3" y1="9" x2="4.6" y2="9" /><path d="M16.24 7.76l1.42-1.42" /><path d="M6.34 17.66l1.42-1.42" /><path d="M16.24 16.24l1.42 1.42" /><path d="M6.34 6.34l1.42 1.42" /></svg></span>
       <span>Configuración</span>
     </a>
@@ -79,17 +87,11 @@ try {
       <button class="btn-logout" onclick="logout()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" style="display: block;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><polyline points="16 17 21 12 16 7" /><line x1="21" y1="12" x2="9" y2="12" /></svg><span>Cerrar Sesión</span></button>
     </div>
   </aside>
-  <div class="sidebar-backdrop" onclick="toggleSidebar()"></div>
 
   <!-- MAIN -->
   <div class="main">
     <div class="topbar">
-      <div class="topbar-left">
-        <button class="topbar-toggle" type="button" onclick="toggleSidebar()" aria-label="Abrir menu" aria-expanded="false" aria-controls="app-sidebar">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="20" height="20" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" /></svg>
-        </button>
-        <div class="page-title" id="topbar-title">Recetas</div>
-      </div>
+      <div class="page-title" id="topbar-title">Configuración</div>
       <div class="topbar-right">
         <div class="topbar-date" id="topbar-date"></div>
       </div>
@@ -97,100 +99,123 @@ try {
 
     <div class="content">
 
-      <div class="page active" id="page-recetas">
-                <div class="stats-row">
-          <!-- 1. TOTAL DE RECETAS DINÁMICO -->
+      <div class="page active" id="page-configuracion">
+        <div class="stats-row">
           <div class="stat-card">
-            <div class="stat-label">Total Recetas</div>
-            <div class="stat-value"><?php echo count($listaRecetas); ?></div>
-            <div class="stat-sub">activas</div>
+            <div class="stat-label">Usuarios</div>
+            <div class="stat-value">3</div>
           </div>
-
-          <!-- 2. COSTO PROMEDIO REAL (Calculado desde tu Base de Datos) -->
           <div class="stat-card">
-            <div class="stat-label">Costo Promedio</div>
-            <?php 
-              $sumaCostos = 0;
-              foreach ($listaRecetas as $r) {
-                  // Limpiamos el texto ($ y espacios) para sumarlo numéricamente
-                  $sumaCostos += floatval(str_replace(['$', ' '], '', $r['rendimiento']));
-              }
-              $promedio = count($listaRecetas) > 0 ? $sumaCostos / count($listaRecetas) : 0;
-            ?>
-            <div class="stat-value green">$<?php echo number_format($promedio, 2); ?></div>
-            <div class="stat-sub">por receta</div>
+            <div class="stat-label">Administradores</div>
+            <div class="stat-value green">1</div>
           </div>
-
-          <!-- 3. CATEGORÍAS DISTINTAS REALES EN MYSQL -->
           <div class="stat-card">
-            <div class="stat-label">Categorías</div>
-            <?php 
-              // Filtramos las categorías únicas que tienes registradas
-              $categoriasUnicas = array_unique(array_column($listaRecetas, 'categoria'));
-            ?>
-            <div class="stat-value blue"><?php echo count($categoriasUnicas); ?></div>
-            <div class="stat-sub">distintas</div>
+            <div class="stat-label">Supervisores</div>
+            <div class="stat-value blue">1</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Operadores</div>
+            <div class="stat-value amber">1</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Alertas</div>
+            <div class="stat-value red">2</div>
           </div>
         </div>
 
-        <div class="toolbar">
-          <div class="search-box">
-            <span class="icon-inline light">🔍</span>
-            <input type="text" placeholder="Buscar receta...">
-          </div>
-          <select class="filter-select">
-            <option>Todas las categorías</option>
-            <option>Panadería</option>
-            <option>Repostería</option>
-            <option>Bebidas</option>
-          </select>
-          <button class="btn btn-primary" onclick="openModal('modal-rec')">+ Agregar Receta</button>
-        </div>
+        <div class="config-grid">
+          <div>
+            <div class="section-divider"><h3>Gestión de Usuarios</h3></div>
+            <div class="config-panel" style="margin-bottom:16px">
+              <h3>Agregar Usuario</h3>
+              <div class="form-grid">
+                <div class="field">
+                  <label>Nombre</label>
+                  <input type="text" placeholder="Nombre completo">
+                </div>
+                <div class="field">
+                  <label>Rol</label>
+                  <select>
+                    <option>Administrador</option>
+                    <option>Supervisor</option>
+                    <option>Operador</option>
+                  </select>
+                </div>
+                <div class="field span2">
+                  <label>Correo</label>
+                  <input type="email" placeholder="usuario@micromaster.com">
+                </div>
+              </div>
+              <div style="margin-top:14px;text-align:right">
+                <button class="btn btn-primary" onclick="demo()">Guardar Usuario</button>
+              </div>
+            </div>
 
-        <div class="table-wrap">
-          <div class="table-scroll">
-                      <table>
-                        <thead><tr>
-                          <th>Nombre</th><th>Categoría</th><th>Insumos</th><th>Costo Unitario</th><th>Estado</th><th>Acciones</th>
-                        </tr></thead>
-                        <tbody id="recetas-tbody">
-              <?php if (!empty($listaRecetas)): ?>
-                <?php foreach ($listaRecetas as $receta): ?>
-                  <?php
-                    // Mapeo estético dinámico de categorías acorde a tu diseño de badges
-                    $catLower = mb_strtolower($receta['categoria']);
-                    $badgeClass = 'badge-gray';
-                    if (str_contains($catLower, 'panad')) $badgeClass = 'badge-amber';
-                    elseif (str_contains($catLower, 'repost')) $badgeClass = 'badge-blue';
-                    elseif (str_contains($catLower, 'bebida')) $badgeClass = 'badge-green';
-                  ?>
-                  <tr style="border-bottom: 1px solid var(--border);">
-                    <td style="padding:14px 16px; text-align:left;">
-                      <strong><?php echo htmlspecialchars($receta['nombre']); ?></strong><br>
-                      <span style="font-size:11px;color:var(--text-muted); font-family:'DM Mono', monospace; font-weight:500; color:var(--primary);"><?php echo htmlspecialchars($receta['codigo']); ?></span>
-                    </td>
-                    <td style="padding:14px 16px; text-align:left;"><span class="badge <?php echo $badgeClass; ?>"><?php echo htmlspecialchars($receta['categoria']); ?></span></td>
-                    <td style="padding:14px 16px; font-family:'DM Sans', sans-serif; font-size:12px; color:var(--text); text-align:left;"><?php echo htmlspecialchars($receta['insumos']); ?></td>
-                    <td style="padding:14px 16px; font-family:'DM Mono', monospace; font-weight:700; color:var(--teal); text-align:left;">$<?php echo htmlspecialchars($receta['rendimiento']); ?></td>
-                    <td style="padding:14px 16px; text-align:left;"><span class="badge badge-green">Activa</span></td>
-                    <td style="padding:14px 16px; text-align:left;">
-                      <div class="actions">
-                       <!-- Reemplaza los dos botones para activar la edición diferenciada de recetas -->
-                      <button class="btn-icon" onclick="verRecetaFicha(this.closest('tr'), true)">✏️</button>
-                      <button class="btn-icon" onclick="verRecetaFicha(this.closest('tr'), false)">👁️</button>
-
-                        <button class="btn-icon danger" onclick="eliminarRecetaReal(<?php echo $receta['id_receta']; ?>)">🗑️</button>
-                      </div>
-                    </td>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Usuario</th><th>Rol</th><th>Estado</th><th>Acciones</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Carlos Rodríguez</strong><br><span style="font-size:11px;color:var(--text-muted)">admin@micromaster.com</span></td>
+                    <td><span class="badge badge-blue">Administrador</span></td>
+                    <td><span class="badge badge-green">Activo</span></td>
+                    <td><div class="actions"><button class="btn-icon" onclick="demo()">✏️</button><button class="btn-icon danger" onclick="demo()">🗑️</button></div></td>
                   </tr>
-                <?php endforeach; ?>
-              <?php else: ?>
-                <tr>
-                  <td colspan="6" style="padding:30px; text-align:center; color:var(--text-muted); font-family:'DM Sans', sans-serif; font-size:14px;">No hay recetas registradas en la base de datos.</td>
-                </tr>
-              <?php endif; ?>
-            </tbody>
-                      </table>
+                  <tr>
+                    <td><strong>Marta Suárez</strong><br><span style="font-size:11px;color:var(--text-muted)">marta@micromaster.com</span></td>
+                    <td><span class="badge badge-amber">Supervisor</span></td>
+                    <td><span class="badge badge-green">Activo</span></td>
+                    <td><div class="actions"><button class="btn-icon" onclick="demo()">✏️</button><button class="btn-icon danger" onclick="demo()">🗑️</button></div></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Juan Paredes</strong><br><span style="font-size:11px;color:var(--text-muted)">juan@micromaster.com</span></td>
+                    <td><span class="badge badge-gray">Operador</span></td>
+                    <td><span class="badge badge-green">Activo</span></td>
+                    <td><div class="actions"><button class="btn-icon" onclick="demo()">✏️</button><button class="btn-icon danger" onclick="demo()">🗑️</button></div></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div>
+            <div class="section-divider"><h3>Configuración de Alertas</h3></div>
+            <div class="config-panel" style="margin-bottom:16px">
+              <h3>Nueva Alerta</h3>
+              <div class="form-grid">
+                <div class="field">
+                  <label>Stock Mínimo Global</label>
+                  <input type="number" placeholder="10" value="10">
+                </div>
+                <div class="field">
+                  <label>Días Antes Vencimiento</label>
+                  <input type="number" placeholder="15" value="15">
+                </div>
+              </div>
+              <div style="margin-top:14px;text-align:right">
+                <button class="btn btn-primary" onclick="demo()">Guardar Alerta</button>
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Stock Mín.</th><th>Días Venc.</th><th>Estado</th><th>Acciones</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td><strong>10</strong> unidades</td>
+                    <td>3 días</td>
+                    <td><span class="badge badge-amber">Monitoreo</span></td>
+                    <td><div class="actions"><button class="btn-icon" onclick="demo()">✏️</button><button class="btn-icon danger" onclick="demo()">🗑️</button></div></td>
+                  </tr>
+                  <tr>
+                    <td><strong>20</strong> unidades</td>
+                    <td>7 días</td>
+                    <td><span class="badge badge-amber">Monitoreo</span></td>
+                    <td><div class="actions"><button class="btn-icon" onclick="demo()">✏️</button><button class="btn-icon danger" onclick="demo()">🗑️</button></div></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -225,7 +250,6 @@ try {
 </div>
 
 <!-- Modal Recetas -->
-<!-- Modal Recetas Corregido -->
 <div class="modal-overlay" id="modal-rec">
   <div class="modal">
     <div class="modal-header">
@@ -233,28 +257,18 @@ try {
       <button class="modal-close" onclick="closeModal('modal-rec')">✕</button>
     </div>
     <div class="form-grid">
-      <!-- Identificadores únicos inyectados para el control asíncrono -->
-      <div class="field span2"><label>Nombre de la Receta</label><input type="text" id="rec-nombre" placeholder="Ej: Pan de queso"></div>
-      <div class="field"><label>Categoría</label>
-        <select id="rec-categoria">
-          <option value="Panadería">Panadería</option>
-          <option value="Repostería">Repostería</option>
-          <option value="Bebidas">Bebidas</option>
-          <option value="Platos">Platos</option>
-        </select>
-      </div>
-      <div class="field"><label>Costo Estimado</label><input type="number" id="rec-rendimiento" placeholder="0.00"></div>
-      <div class="field span2"><label>Insumos (separados por coma)</label><input type="text" id="rec-insumos" placeholder="Harina 1kg, Sal 20g, Leche 0.6L"></div>
+      <div class="field span2"><label>Nombre de la Receta</label><input type="text" placeholder="Ej: Pan de queso"></div>
+      <div class="field"><label>Categoría</label><select><option>Panadería</option><option>Repostería</option><option>Bebidas</option><option>Platos</option></select></div>
+      <div class="field"><label>Costo Estimado</label><input type="number" placeholder="0.00"></div>
+      <div class="field span2"><label>Insumos (separados por coma)</label><input type="text" placeholder="Harina 1kg, Sal 20g, Leche 0.6L"></div>
       <div class="field span2"><label>Descripción</label><textarea placeholder="Descripción del proceso de preparación..."></textarea></div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-outline" onclick="closeModal('modal-rec')">Cancelar</button>
-      <!-- Enlace directo a la función de JavaScript global -->
-      <button class="btn btn-primary" onclick="procesarNuevaReceta()">Guardar Receta</button>
+      <button class="btn btn-primary" onclick="demoModal()">Guardar Receta</button>
     </div>
   </div>
 </div>
-
 
 <!-- Modal Envíos -->
 <div class="modal-overlay" id="modal-env">

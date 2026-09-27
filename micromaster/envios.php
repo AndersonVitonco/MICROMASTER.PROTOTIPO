@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // envios.php - INICIO DEL ARCHIVO: Cargar datos desde phpMyAdmin
 require_once 'conexion.php';
 
@@ -18,10 +18,30 @@ try {
   <title>MicroMaster — Envíos</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/main.css">
+  <style>
+    .sidebar { width: 260px; min-height: 100vh; padding: 8px 10px; background: var(--primary-dark); color: rgba(255,255,255,.92); display: flex; flex-direction: column; gap: 2px; }
+    .sidebar-logo { display: flex; align-items: center; gap: 8px; padding-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .sidebar-logo-img { width: 44px; height: 44px; border-radius: 14px; object-fit: cover; }
+    .sidebar-logo-title { font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 700; letter-spacing: .04em; color: #f8fafc; }
+    .sidebar-logo-sub { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-top: -2px; }
+    .sidebar-section-label { font-family: 'Inter', sans-serif; font-size: 8px; text-transform: uppercase; letter-spacing: .20em; color: rgba(255,255,255,.35); margin-top: 2px; margin-bottom: 2px; }
+    .nav-item { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 10px; color: rgba(255,255,255,.82); text-decoration: none; font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: .01em; transition: background .2s ease, color .2s ease; }
+    .nav-item:hover { background: rgba(255,255,255,.08); color: #f8fafc; }
+    .nav-icon { width: 22px; height: 22px; display: flex; flex-shrink: 0; align-items: center; justify-content: center; color: rgba(255,255,255,.68); }
+    .nav-item.active { background: rgba(52,211,153,.18); color: #e2f9e7; }
+    .nav-item.active .nav-icon { color: #4ade80; }
+    .nav-item.active:hover { background: rgba(52,211,153,.24); }
+    .sidebar-user { margin-top: auto; padding-top: 6px; border-top: 1px solid rgba(255,255,255,.08); display: flex; flex-direction: column; gap: 3px; }
+    .sidebar-user-name { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; color: #f8fafc; }
+    .sidebar-user-role { font-family: 'Inter', sans-serif; font-size: 12px; color: rgba(255,255,255,.5); }
+    .btn-logout { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.05); color: rgba(255,255,255,.88); font-family: 'Inter', sans-serif; font-size: 11px; cursor: pointer; transition: background .2s ease, border-color .2s ease; }
+    .btn-logout:hover { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.22); }
+    .btn-logout span { display: inline-flex; align-items: center; }
+  </style>
 </head>
 <body>
   <div id="app" class="visible">
-    <aside class="sidebar" id="app-sidebar">
+    <aside class="sidebar">
     <div class="sidebar-logo">
       <img src="assets/img/WhatsApp Image 2025-07-07 at 2.53.03 PM.png" alt="MicroMaster" class="sidebar-logo-img">
       <div>
@@ -76,15 +96,9 @@ try {
       <button class="btn-logout" onclick="logout()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" style="display: block;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><polyline points="16 17 21 12 16 7" /><line x1="21" y1="12" x2="9" y2="12" /></svg><span>Cerrar Sesión</span></button>
     </div>
   </aside>
-  <div class="sidebar-backdrop" onclick="toggleSidebar()"></div>
     <div class="main">
       <div class="topbar">
-        <div class="topbar-left">
-          <button class="topbar-toggle" type="button" onclick="toggleSidebar()" aria-label="Abrir menu" aria-expanded="false" aria-controls="app-sidebar">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="20" height="20" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" /></svg>
-          </button>
-          <div class="page-title">Envíos</div>
-        </div>
+        <div class="page-title">Envíos</div>
         <div class="topbar-right"><div class="topbar-date" id="topbar-date"></div></div>
       </div>
       <div class="content">
@@ -116,7 +130,7 @@ try {
             <div class="stat-card"><div class="stat-label">En Ruta</div><div class="stat-value blue"><?php echo $enTransito; ?></div><div class="stat-sub">despachados</div></div>
           </div>
 
-          <div class="grid-side" style="margin-bottom:14px">
+          <div style="display:grid;grid-template-columns:240px 1fr;gap:14px;margin-bottom:14px">
             <div style="background:var(--white);border:1.5px solid var(--border);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:10px">
               <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);margin-bottom:4px">Control de Flotas</div>
               <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:#f0faf5;border-radius:10px;border:1px solid #b6e8cf">
@@ -133,7 +147,7 @@ try {
               </div>
             </div>
             <div style="background:#e8f0e4;border-radius:16px;border:1.5px solid var(--border);position:relative;overflow:hidden;min-height:460px;display:block;width:100%;box-sizing:border-box">
-              <div id="map-tooltip" class="map-tooltip" style="display:none">
+              <div id="map-tooltip" style="display:none;position:absolute;z-index:50;width:280px;background:rgba(255,255,255,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.7);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.2);padding:16px;pointer-events:none;transition:all 0.2s">
                 <button onclick="closeTooltip()" style="position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.08);border:none;border-radius:50%;width:24px;height:24px;cursor:pointer;font-size:12px;pointer-events:all">✕</button>
                 <div id="tt-header" style="margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid rgba(0,0,0,0.08)">
                   <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
@@ -301,61 +315,59 @@ try {
               </div>
             </div>
             <div style="display:block;overflow:hidden;width:100%;box-sizing:border-box">
-              <div class="table-scroll">
-                              <table id="pedidos-table" style="width:100%;border-collapse:collapse">
-                                <thead><tr style="background:#f7f9fc;border-bottom:1.5px solid var(--border)">
-                                  <th style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);padding:10px 14px;text-align:left">ID</th>
-                                  <th style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);padding:10px 14px;text-align:left">Destino</th>
-                                  <th style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);padding:10px 14px;text-align:left">Conductor</th>
-                                  <th style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);padding:10px 14px;text-align:left">Ruta</th>
-                                  <th style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);padding:10px 14px;text-align:left">Estado</th>
-                                  <th style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);padding:10px 14px;text-align:left">ETA</th>
-                                  <th style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);padding:10px 14px;text-align:left">Total</th>
-                                  <th style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);padding:10px 14px;text-align:left">Acciones</th>
-                                </tr></thead>
-                                <tbody id="pedidos-tbody">
-                  <?php if (!empty($listaPedidos)): ?>
-                    <?php foreach ($listaPedidos as $pedido): ?>
-                      <?php
-                        // 🎨 Paleta de colores pastel unificada (Estilo Inventario)
-                        $badgeBg = '#ffedd5';    // Naranja pastel suave para Pendiente
-                        $badgeColor = '#c2410c'; // Texto naranja oscuro
+              <table id="pedidos-table" style="width:100%;border-collapse:collapse">
+                <thead><tr style="background:#f7f9fc;border-bottom:1.5px solid var(--border)">
+                  <th style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);padding:10px 14px;text-align:left">ID</th>
+                  <th style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);padding:10px 14px;text-align:left">Destino</th>
+                  <th style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);padding:10px 14px;text-align:left">Conductor</th>
+                  <th style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);padding:10px 14px;text-align:left">Ruta</th>
+                  <th style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);padding:10px 14px;text-align:left">Estado</th>
+                  <th style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);padding:10px 14px;text-align:left">ETA</th>
+                  <th style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);padding:10px 14px;text-align:left">Total</th>
+                  <th style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);padding:10px 14px;text-align:left">Acciones</th>
+                </tr></thead>
+                <tbody id="pedidos-tbody">
+  <?php if (!empty($listaPedidos)): ?>
+    <?php foreach ($listaPedidos as $pedido): ?>
+      <?php 
+        // 🎨 Paleta de colores pastel unificada (Estilo Inventario)
+        $badgeBg = '#ffedd5';    // Naranja pastel suave para Pendiente
+        $badgeColor = '#c2410c'; // Texto naranja oscuro
+        
+        if ($pedido['estado'] === 'En tránsito') {
+            $badgeBg = '#e0f2fe';    // Azul pastel suave
+            $badgeColor = '#0369a1'; // Texto azul oscuro
+        } else if ($pedido['estado'] === 'Entregado') {
+            $badgeBg = '#dcfce7';    // Verde pastel suave
+            $badgeColor = '#15803d'; // Texto verde oscuro
+        }
+      ?>
+      <tr style="border-bottom: 1px solid var(--border);">
+        <td style="padding:14px 16px; font-size:12px; font-weight:700; color:var(--primary); font-family:'DM Mono', monospace; text-align:left;"><?php echo htmlspecialchars($pedido['codigo_envio']); ?></td>
+        <td style="padding:14px 16px; font-size:13px; font-weight:600; color:#1e293b; font-family:'DM Sans', sans-serif; text-align:left;"><?php echo htmlspecialchars($pedido['destino']); ?></td>
+        <td style="padding:14px 16px; font-size:12px; color:var(--text-muted); font-family:'DM Sans', sans-serif; text-align:left;"><?php echo htmlspecialchars($pedido['conductor']); ?></td>
+        <td style="padding:14px 16px; font-size:12px; font-family:'DM Sans', sans-serif; text-align:left;"><span style="padding:4px 8px; background:#f1f5f9; border-radius:6px; color:#475569; font-weight:500; font-size:11px;"><?php echo htmlspecialchars($pedido['ruta']); ?></span></td>
+        <td style="padding:14px 16px; text-align:left;"><span style="display:inline-block; padding:4px 10px; border-radius:6px; background-color:<?php echo $badgeBg; ?>; color:<?php echo $badgeColor; ?>; font-size:11px; font-weight:700; font-family:'DM Sans', sans-serif; text-transform:uppercase; letter-spacing:0.5px;"><?php echo htmlspecialchars($pedido['estado']); ?></span></td>
+        <td style="padding:14px 16px; font-size:12px; font-weight:600; color:#1e293b; font-family:'DM Sans', sans-serif; text-align:left;"><?php echo htmlspecialchars($pedido['eta']); ?></td>
+        <td style="padding:14px 16px; font-size:13px; color:#1e293b; font-weight:700; font-family:'DM Sans', sans-serif; text-align:left;">$<?php echo number_format($pedido['total'], 2); ?></td>
+        <td style="padding:14px 16px; text-align:left;">
+          <div class="actions">
+            <!-- Reemplazo exacto para el botón del lápiz en envios.php -->
+            <button class="btn-icon" onclick="verPedidoFicha(this.closest('tr'))">✏️</button>
+            <button class="btn-icon danger" onclick="eliminarPedidoReal(<?php echo $pedido['id_pedido']; ?>)">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    <?php endforeach; ?>
+  <?php else: ?>
+    <!-- Mensaje de respaldo por si no hay registros -->
+    <tr>
+      <td colspan="7" style="padding:30px; text-align:center; color:var(--text-muted); font-family:'DM Sans', sans-serif; font-size:14px;">No hay envíos registrados en la base de datos.</td>
+    </tr>
+  <?php endif; ?>
+</tbody>
 
-                        if ($pedido['estado'] === 'En tránsito') {
-                            $badgeBg = '#e0f2fe';    // Azul pastel suave
-                            $badgeColor = '#0369a1'; // Texto azul oscuro
-                        } else if ($pedido['estado'] === 'Entregado') {
-                            $badgeBg = '#dcfce7';    // Verde pastel suave
-                            $badgeColor = '#15803d'; // Texto verde oscuro
-                        }
-                      ?>
-                      <tr style="border-bottom: 1px solid var(--border);">
-                        <td style="padding:14px 16px; font-size:12px; font-weight:700; color:var(--primary); font-family:'DM Mono', monospace; text-align:left;"><?php echo htmlspecialchars($pedido['codigo_envio']); ?></td>
-                        <td style="padding:14px 16px; font-size:13px; font-weight:600; color:#1e293b; font-family:'DM Sans', sans-serif; text-align:left;"><?php echo htmlspecialchars($pedido['destino']); ?></td>
-                        <td style="padding:14px 16px; font-size:12px; color:var(--text-muted); font-family:'DM Sans', sans-serif; text-align:left;"><?php echo htmlspecialchars($pedido['conductor']); ?></td>
-                        <td style="padding:14px 16px; font-size:12px; font-family:'DM Sans', sans-serif; text-align:left;"><span style="padding:4px 8px; background:#f1f5f9; border-radius:6px; color:#475569; font-weight:500; font-size:11px;"><?php echo htmlspecialchars($pedido['ruta']); ?></span></td>
-                        <td style="padding:14px 16px; text-align:left;"><span style="display:inline-block; padding:4px 10px; border-radius:6px; background-color:<?php echo $badgeBg; ?>; color:<?php echo $badgeColor; ?>; font-size:11px; font-weight:700; font-family:'DM Sans', sans-serif; text-transform:uppercase; letter-spacing:0.5px;"><?php echo htmlspecialchars($pedido['estado']); ?></span></td>
-                        <td style="padding:14px 16px; font-size:12px; font-weight:600; color:#1e293b; font-family:'DM Sans', sans-serif; text-align:left;"><?php echo htmlspecialchars($pedido['eta']); ?></td>
-                        <td style="padding:14px 16px; font-size:13px; color:#1e293b; font-weight:700; font-family:'DM Sans', sans-serif; text-align:left;">$<?php echo number_format($pedido['total'], 2); ?></td>
-                        <td style="padding:14px 16px; text-align:left;">
-                          <div class="actions">
-                            <!-- Reemplazo exacto para el botón del lápiz en envios.php -->
-                            <button class="btn-icon" onclick="verPedidoFicha(this.closest('tr'))">✏️</button>
-                            <button class="btn-icon danger" onclick="eliminarPedidoReal(<?php echo $pedido['id_pedido']; ?>)">🗑️</button>
-                          </div>
-                        </td>
-                      </tr>
-                    <?php endforeach; ?>
-                  <?php else: ?>
-                    <!-- Mensaje de respaldo por si no hay registros -->
-                    <tr>
-                      <td colspan="7" style="padding:30px; text-align:center; color:var(--text-muted); font-family:'DM Sans', sans-serif; font-size:14px;">No hay envíos registrados en la base de datos.</td>
-                    </tr>
-                  <?php endif; ?>
-                </tbody>
-
-                              </table>
-              </div>
+              </table>
             </div>
           </div>
         </div>

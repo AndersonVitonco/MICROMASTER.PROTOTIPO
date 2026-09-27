@@ -12,67 +12,6 @@
   }
 })();
 
-// ── Sidebar responsive (drawer en tablet/móvil) ──
-const SIDEBAR_BREAKPOINT = 1024;
-
-function isSidebarDrawer() {
-  return window.matchMedia('(max-width: ' + (SIDEBAR_BREAKPOINT - 1) + 'px)').matches;
-}
-
-function setSidebarOpen(open) {
-  const sidebar = document.getElementById('app-sidebar');
-  if (!sidebar) return;
-
-  const backdrop = document.querySelector('.sidebar-backdrop');
-  if (open) {
-    sidebar.classList.add('open');
-  } else {
-    sidebar.classList.remove('open');
-  }
-
-  if (backdrop) backdrop.classList.toggle('open', open);
-
-  document.querySelectorAll('.topbar-toggle').forEach(btn => {
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    btn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
-  });
-
-  // Bloquea el scroll del fondo mientras el drawer está abierto
-  document.body.classList.toggle('sidebar-open', open);
-}
-
-function toggleSidebar() {
-  const sidebar = document.getElementById('app-sidebar');
-  if (!sidebar) return;
-  setSidebarOpen(!sidebar.classList.contains('open'));
-}
-
-(function() {
-  const sidebar = document.getElementById('app-sidebar');
-  if (!sidebar) return;
-
-  // Escape cierra el drawer
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && sidebar.classList.contains('open')) {
-      setSidebarOpen(false);
-      if (typeof closeMegaMenu === 'function') closeMegaMenu();
-    }
-  });
-
-  // En escritorio el sidebar es fijo: se limpia cualquier estado móvil
-  const mq = window.matchMedia('(min-width: ' + SIDEBAR_BREAKPOINT + 'px)');
-  const onChange = (e) => { if (e.matches) setSidebarOpen(false); };
-  if (typeof mq.addEventListener === 'function') mq.addEventListener('change', onChange);
-  else if (typeof mq.addListener === 'function') mq.addListener(onChange);
-
-  // Navegar a otra página cierra el drawer
-  sidebar.querySelectorAll('a.nav-item').forEach(link => {
-    link.addEventListener('click', () => setSidebarOpen(false));
-  });
-
-  setSidebarOpen(false);
-})();
-
 // ── Landing / Auth ──
 function enterApp() {
   // Acceso Demo / Iniciar sesión → Dashboard
@@ -267,11 +206,7 @@ function closeMegaMenu() {
       lastInteraction = Date.now();
       scheduleClose();
     });
-    // En táctil no hay hover: el click abre el panel
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      openMenu(menuName);
-    });
+    link.addEventListener('click', (e) => e.preventDefault());
   });
 
   // Update global closeMegaMenu
@@ -284,16 +219,14 @@ function closeMegaMenu() {
   };
 })();
 
-// ── Hover / tap content switching inside 'Tipos de industria' mega menu ──
+// ── Hover content switching inside 'Tipos de industria' mega menu ──
 (function() {
   // Solo ejecutar en página de inicio
   if (!document.querySelector('.landing-nav')) return;
-
-  // El sistema unificado clona los overlays en #mega-menu-container:
-  // hay que cambiar el contenido del panel visible, no del overlay original oculto.
-  const scope = document.getElementById('panel-tipos') || document.getElementById('mega-tipos');
-  if (!scope) return;
-  const panel = scope.querySelector('#mega-tipos-panel');
+  
+  const overlay = document.getElementById('mega-tipos');
+  if (!overlay) return;
+  const panel = overlay.querySelector('#mega-tipos-panel');
   if (!panel) return;
 
   const defaultHTML = panel.innerHTML;
@@ -316,26 +249,18 @@ function closeMegaMenu() {
       <div style="display:flex;flex-direction:column;gap:12px"><div class="mega-menu-feature"><span class="icon-inline">🛒</span><div><p style="font-weight:700;font-size:14px;color:#1a1a2e">Logística integrada</p><p style="font-size:12px;color:#2d4a6e">Rutas, stock por cliente y sincronización de inventario.</p></div></div></div>`
   };
 
-  const links = scope.querySelectorAll('.mega-menu-links a.mega-menu-link');
-  const switchTo = (key, link) => {
-    if (contentMap[key]) panel.innerHTML = contentMap[key];
-    links.forEach(x => x.classList.toggle('active', x === link));
-  };
-
+  const links = overlay.querySelectorAll('.mega-menu-links a.mega-menu-link');
   links.forEach(l => {
-    switchTo(l.dataset.key, l);
+    const key = l.dataset.key;
     l.addEventListener('mouseenter', (e) => {
       e.preventDefault();
-      switchTo(l.dataset.key, l);
+      if (contentMap[key]) panel.innerHTML = contentMap[key];
+      links.forEach(x => x.classList.toggle('active', x === l));
     });
-    // En táctil el hover no existe: el toque cambia el contenido
-    l.addEventListener('click', (e) => {
-      e.preventDefault();
-      switchTo(l.dataset.key, l);
-    });
+    l.addEventListener('click', e => e.preventDefault());
   });
 
-  scope.addEventListener('mouseleave', () => {
+  overlay.addEventListener('mouseleave', () => {
     panel.innerHTML = defaultHTML;
     links.forEach(x => x.classList.remove('active'));
   });

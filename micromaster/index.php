@@ -99,7 +99,7 @@
   <!-- ── MEGA MENÚ: Módulos ── -->
   <div class="mega-menu-overlay" id="mega-modulos" onclick="closeMegaMenu()">
     <div class="mega-menu" onclick="event.stopPropagation()" style="gap:20px;align-items:flex-start">
-      <div class="grid-2" style="gap:12px;flex:1">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1">
         <div style="padding:16px;border:1px solid #e0e8f0;border-radius:10px;cursor:pointer" onclick="closeMegaMenu()">
           <span class="icon-inline">📦</span>
           <p style="font-weight:800;font-size:14px;margin:8px 0 4px">Inventario</p>
@@ -224,7 +224,7 @@
 
       <!-- REGISTER FORM -->
       <div id="auth-form-register" style="display:none">
-        <div class="auth-form-grid" style="margin-bottom:14px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
           <div>
             <label style="display:block;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Nombre</label>
             <input type="text" placeholder="Tu nombre" style="width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:DM Sans,sans-serif;font-size:13px;color:var(--black);background:var(--bg);outline:none">
@@ -251,7 +251,7 @@
           <label style="display:block;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Correo electrónico</label>
           <input type="email" placeholder="tu@empresa.com" style="width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:DM Sans,sans-serif;font-size:13px;color:var(--black);background:var(--bg);outline:none">
         </div>
-        <div class="auth-form-grid" style="margin-bottom:12px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
           <div>
             <label style="display:block;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Contraseña</label>
             <input type="password" placeholder="Mín. 8 caracteres" style="width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:DM Sans,sans-serif;font-size:13px;color:var(--black);background:var(--bg);outline:none">
